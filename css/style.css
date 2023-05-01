@@ -1,0 +1,147 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+body{
+    background-color: #1a191f;
+    font-family: "Open-sans", sans-serif;
+}
+
+.container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header__content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+.header__nav-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+}
+
+.header__nav-menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 15px;
+}
+
+.header__nav-link{
+    color: #ffd80e;
+    cursor: pointer;
+    transition: .6s;
+}
+.header__nav-link:hover{
+    text-decoration: underline;
+    transition: .6s;
+}
+
+.header__nav-link:active{
+    text-decoration: underline;
+}
+
+.header__logo{
+    font-size: 32px;
+    color: white;
+}
+
+.header__search{
+    padding: 8px;
+    border: 2px solid #1a191f;
+    border-radius: 5px;
+    outline: none;
+}
+
+.movies{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movie{
+    width: 240px;
+    margin: 10px;
+    position: relative;
+}
+
+.movie__cover-inner{
+    position: relative;
+}
+
+.movie__cover{
+    max-width: 100%;
+    height: 100%;
+}
+
+.movie__cover-darkened{
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.movie__cover-darkened:hover{
+    background-color: grey;
+    cursor: pointer;
+}
+
+.movie__info{
+    padding: 10px 0;
+}
+
+.movie__title{
+    font-size: 16px;
+    color: white;
+}
+
+.movie__category{
+    font-size: 14px;
+    color: #ffd80e;
+}
+.movie__year{
+    font-size: 14px;
+    color: dodgerblue;
+}
+
+.movie__average{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a191f;
+    color: white;
+    font-size: 14px;
+}
+
+.movie__average--green{
+    border: 1px solid green;
+}
+
+.movie__average--orange{
+    border: 1px solid orange;
+}
+
+.movie__average--red{
+    border: 1px solid red;
+}
