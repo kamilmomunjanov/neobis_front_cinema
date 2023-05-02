@@ -51,6 +51,20 @@ body{
     text-decoration: underline;
 }
 
+.header__favorite{
+    color: #ffd80e;
+    cursor: pointer;
+    transition: .6s;
+}
+.header__favorite:hover{
+    text-decoration: underline;
+    transition: .6s;
+}
+
+.header__favorite:active{
+    text-decoration: underline;
+}
+
 .header__logo{
     font-size: 32px;
     color: white;

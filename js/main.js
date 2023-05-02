@@ -12,24 +12,53 @@ const API_URL_TOP_RELEASES = "https://kinopoiskapiunofficial.tech/api/v2.1/films
 let favorites = []
 
 
-console.log(favorites)
 if (localStorage.getItem('favorites') !== null){
     favorites = JSON.parse(localStorage.getItem('favorites'))
 }
 
-document.querySelector(".header__favorite").addEventListener("click", (e) =>{
-    if (favorites !== null) {
-        const moviesEl =document.querySelector(".movies")
-        moviesEl.innerHTML = "";
-            const movieEl = document.createElement("div")
-            movieEl.classList.add("movie")
-        console.log(favorites.map((el) =>{
-            return el
-        }))
-    }else{
-        console.log("bad")
-    }
-})
+
+getMovies(API_URL_POPULAR, 'films');
+async function getMovies(url, arr) {
+    const resp = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY
+        }
+    })
+    const respData = await resp.json()
+    console.log(respData)
+    await showMovies(respData, arr)
+}
+
+
+    document.querySelector("#favorite").addEventListener("click", (e) =>{
+            const moviesEl =document.querySelector(".movies")
+            moviesEl.innerHTML = "";
+
+            favorites.forEach((el) =>{
+                const movieEl = document.createElement("div")
+                movieEl.classList.add("movie")
+                movieEl.innerHTML = `
+        <div class="movie__cover-inner">
+                        <img class="movie__cover"
+                             src="${el.posterUrlPreview}"
+                             alt="${el.nameRu}">
+                        <div class="movie__cover--darkened"></div>
+                    </div>
+                    <div class="movie__info">
+                        <div class="movie__title">${el.nameRu}</div>
+                        <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
+                        ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
+                        <div class="movie__heart"><button data-id="${el.filmId}"  class="movie__heart-btn" type="button">OK</button></div>
+                        <div class="movie__year">${el.year}</div>
+                    </div>
+        `
+
+                moviesEl.appendChild(movieEl)
+            })
+    })
+
+
 
 const headerLinks = document.querySelectorAll('.header__nav-link')
 
@@ -51,27 +80,12 @@ Array.from(headerLinks).forEach((item) => {
             case 'release':{
                 getMovies(API_URL_TOP_RELEASES, "releases")
             }
-            case 'favorite':{
-                getMovies()
-            }
             break
             default : console.log('Ошибка !')
         }
     })
 })
 
-getMovies(API_URL_POPULAR, 'films');
-async function getMovies(url, arr) {
-    const resp = await fetch(url, {
-        headers: {
-            "Content-Type": "application/json",
-            "X-API-KEY": API_KEY
-        }
-    })
-    const respData = await resp.json()
-    console.log(respData)
-    await showMovies(respData, arr)
-}
 
 
 function getClassByRate(vote) {
@@ -128,21 +142,6 @@ function showMovies(data, arr) {
     })
 }
 
-
-//     let favoritesBtn = document.querySelectorAll('.movie__cover')
-//
-//     Array.from(favoritesBtn).forEach((item) => {
-//         item.addEventListener('click', () => {
-//             console.log(item.dataset)
-//             if (favorites.some(el => el.filmId == item.dataset.id)){
-//                 favorites = favorites.filter(el => el.filmId != item.dataset.id)
-//             } else {
-//                 favorites = [...favorites, data[arr].find(el => el.filmId == item.dataset.id)]
-//             }
-//             localStorage.setItem('favorites', JSON.stringify(favorites))
-//         })
-//     })
-// }
 
 
 const form = document.querySelector("form")
