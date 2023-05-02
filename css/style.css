@@ -162,6 +162,11 @@ body{
     padding: 5px;
 }
 
+.active{
+    background-color: grey;
+}
+
+
 .movie__average--green{
     border: 1px solid green;
 }

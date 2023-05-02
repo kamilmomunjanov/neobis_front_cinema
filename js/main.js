@@ -1,6 +1,6 @@
 
 
-const API_KEY = "f636e85f-179e-4dc1-851f-737d2ed75264";
+const API_KEY = "dc570186-81c1-458a-96d6-1a1972ef2765";
 const API_URL_POPULAR = "https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=1";
 const API_URL_SEARCH = "https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=";
 const API_URL_TOP_CURRENT_MONTH = "https://kinopoiskapiunofficial.tech/api/v2.2/films/premieres?year=2023&month=MAY"
@@ -15,6 +15,7 @@ let favorites = []
 if (localStorage.getItem('favorites') !== null){
     favorites = JSON.parse(localStorage.getItem('favorites'))
 }
+
 
 
 getMovies(API_URL_POPULAR, 'films');
@@ -56,7 +57,22 @@ async function getMovies(url, arr) {
 
                 moviesEl.appendChild(movieEl)
             })
+        let favoritesButton = document.querySelectorAll('.movie__heart-btn')
+
+        Array.from(favoritesButton).forEach((item) => {
+            item.addEventListener('click', () => {
+                console.log(item.dataset)
+                if (favorites.some(el => el.filmId == item.dataset.id)){
+                    favorites = favorites.filter(el => el.filmId != item.dataset.id)
+                } else {
+                    favorites = [...favorites, item.find(el => el.filmId == item.dataset.id)]
+                }
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+            })
+        })
+
     })
+
 
 
 
@@ -100,6 +116,8 @@ function getClassByRate(vote) {
     }
 }
 
+
+
 function showMovies(data, arr) {
     const moviesEl =document.querySelector(".movies")
     console.log(data)
@@ -119,7 +137,7 @@ function showMovies(data, arr) {
                         <div class="movie__title">${el.nameRu}</div>
                         <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
                         ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
-                        <div class="movie__heart"><button  data-id="${el.filmId}" class="movie__heart-btn" type="button">OK</button></div>
+                        <div class="movie__heart"><button data-id="${el.filmId}" class="movie__heart-btn active" type="button">OK</button></div>
                         <div class="movie__year">${el.year}</div>
                     </div>
         `
@@ -140,8 +158,8 @@ function showMovies(data, arr) {
             localStorage.setItem('favorites', JSON.stringify(favorites))
         })
     })
-}
 
+}
 
 
 const form = document.querySelector("form")
