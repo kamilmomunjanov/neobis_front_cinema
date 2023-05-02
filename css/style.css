@@ -134,6 +134,20 @@ body{
     font-size: 14px;
 }
 
+.movie__heart{
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+
+.movie__heart-btn{
+    border-radius: 50%;
+    border: none;
+    background-color: red;
+    cursor: pointer;
+    padding: 5px;
+}
+
 .movie__average--green{
     border: 1px solid green;
 }
