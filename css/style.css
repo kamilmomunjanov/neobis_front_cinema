@@ -157,12 +157,12 @@ body{
 .movie__heart-btn{
     border-radius: 50%;
     border: none;
-    background-color: red;
+    background-color: grey;
     cursor: pointer;
     padding: 5px;
 }
 
-.active{
+.movie__heart-btn.active{
     background-color: grey;
 }
 
@@ -178,3 +178,4 @@ body{
 .movie__average--red{
     border: 1px solid red;
 }
+

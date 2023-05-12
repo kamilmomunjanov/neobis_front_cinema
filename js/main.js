@@ -16,6 +16,14 @@ if (localStorage.getItem('favorites') !== null){
     favorites = JSON.parse(localStorage.getItem('favorites'))
 }
 
+if (localStorage.getItem('favoritesButton') !== null){
+    favorites = JSON.parse(localStorage.getItem('favoritesButton'))
+}
+
+if (localStorage.getItem('favoritesBtn') !== null){
+    favorites = JSON.parse(localStorage.getItem('favoritesBtn'))
+}
+
 
 
 getMovies(API_URL_POPULAR, 'films');
@@ -50,7 +58,7 @@ async function getMovies(url, arr) {
                         <div class="movie__title">${el.nameRu}</div>
                         <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
                         ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
-                        <div class="movie__heart"><button data-id="${el.filmId}"  class="movie__heart-btn" type="button">OK</button></div>
+                        <div class="movie__heart"><button data-id="${el.filmId}"  class="movie__heart-btn" type="button"><img class="heart" src="../assets/heart.png" alt="heart"></button></div>
                         <div class="movie__year">${el.year}</div>
                     </div>
         `
@@ -63,13 +71,35 @@ async function getMovies(url, arr) {
             item.addEventListener('click', () => {
                 console.log(item.dataset)
                 if (favorites.some(el => el.filmId == item.dataset.id)){
+                    item.style.backgroundColor = "grey"
                     favorites = favorites.filter(el => el.filmId != item.dataset.id)
+
                 } else {
+                    item.style.backgroundColor = "red"
                     favorites = [...favorites, item.find(el => el.filmId == item.dataset.id)]
+
                 }
                 localStorage.setItem('favorites', JSON.stringify(favorites))
+                localStorage.setItem('favoritesButton', JSON.stringify(item.style.backgroundColor))
             })
+            if (favorites.some(el => el.filmId == item.dataset.id)) {
+                item.style.backgroundColor = "red"
+            }else {
+                item.style.backgroundColor = "grey"
+            }
+            localStorage.setItem('favoritesButton', JSON.stringify(item.style.backgroundColor))
         })
+        //
+        // Array.from(favoritesButton).forEach((el) => {
+        //     el.addEventListener('click', () => {
+        //         if (localStorage.getItem('favorites') !== null) {
+        //             el.style.backgroundColor = "red"
+        //         }else {
+        //             el.style.backgroundColor = "grey"
+        //         }
+        //         localStorage.setItem('favorites', JSON.stringify(favorites))
+        //     })
+        // })
 
     })
 
@@ -82,7 +112,7 @@ Array.from(headerLinks).forEach((item) => {
     item.addEventListener('click', () => {
         switch (item.id) {
             case 'month' : {
-                getMovies(API_URL_TOP_CURRENT_MONTH, 'items')
+                getMovies(API_URL_TOP_EXPECTED_FILMS, 'films')
             }
             break
             case 'wait':{
@@ -137,7 +167,7 @@ function showMovies(data, arr) {
                         <div class="movie__title">${el.nameRu}</div>
                         <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
                         ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
-                        <div class="movie__heart"><button data-id="${el.filmId}" class="movie__heart-btn active" type="button">OK</button></div>
+                        <div style={} class="movie__heart"><button data-id="${el.filmId}" class="movie__heart-btn" type="button"><img class="heart" src="../assets/heart.png" alt="heart"></button></div>
                         <div class="movie__year">${el.year}</div>
                     </div>
         `
@@ -152,12 +182,32 @@ function showMovies(data, arr) {
             console.log(item.dataset)
             if (favorites.some(el => el.filmId == item.dataset.id)){
                 favorites = favorites.filter(el => el.filmId != item.dataset.id)
+                item.style.backgroundColor = "grey"
             } else {
                 favorites = [...favorites, data[arr].find(el => el.filmId == item.dataset.id)]
+                item.style.backgroundColor = "red"
             }
             localStorage.setItem('favorites', JSON.stringify(favorites))
+            localStorage.setItem('favoritesBtn', JSON.stringify(item.style.backgroundColor))
         })
+        if (favorites.some(el => el.filmId == item.dataset.id)) {
+            item.style.backgroundColor = "red"
+        }else {
+            item.style.backgroundColor = "grey"
+        }
+        localStorage.setItem('favoritesButton', JSON.stringify(item.style.backgroundColor))
     })
+
+    // Array.from(favoritesBtn).forEach((el) => {
+    //     el.addEventListener('click', () => {
+    //         if (localStorage.getItem('favorites') !== null) {
+    //             el.style.backgroundColor = "red"
+    //         }else {
+    //             el.style.backgroundColor = "grey"
+    //         }
+    //         localStorage.setItem('favorites', JSON.stringify(favorites))
+    //     })
+    // })
 
 }
 
@@ -170,9 +220,11 @@ form.addEventListener("submit", (e) => {
 
     const apiSearchUrl = `${API_URL_SEARCH}${search.value}`
     if (search.value) {
-        getMovies(apiSearchUrl)
+        getMovies(apiSearchUrl, "films")
 
         search.value = ""
+    }else {
+        console.log("Error")
     }
 })
 
