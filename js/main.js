@@ -58,7 +58,7 @@ async function getMovies(url, arr) {
                         <div class="movie__title">${el.nameRu}</div>
                         <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
                         ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
-                        <div class="movie__heart"><button data-id="${el.filmId}"  class="movie__heart-btn" type="button"><img class="heart" src="../assets/heart.png" alt="heart"></button></div>
+                        <div class="movie__heart"><button data-id="${el.filmId}"  class="movie__heart-btn" type="button"><img class="heart" src="https://img.freepik.com/free-icon/heart_318-291441.jpg?t=st=1683858834~exp=1683859434~hmac=c90d793ef344efd71272d89f71aa7c4e85abad1a0751b6fd3f6388f38a1433a7" alt="heart"></button></div>
                         <div class="movie__year">${el.year}</div>
                     </div>
         `
@@ -167,7 +167,7 @@ function showMovies(data, arr) {
                         <div class="movie__title">${el.nameRu}</div>
                         <div class="movie__category">${el.genres.map((genre) => ` ${genre.genre}`)}</div>
                         ${el.rating && `<div class="movie__average movie__average--${getClassByRate(el.rating)}">${el.rating}</div>`}
-                        <div style={} class="movie__heart"><button data-id="${el.filmId}" class="movie__heart-btn" type="button"><img class="heart" src="../assets/heart.png" alt="heart"></button></div>
+                        <div style={} class="movie__heart"><button data-id="${el.filmId}" class="movie__heart-btn" type="button"><img class="heart" src="https://img.freepik.com/free-icon/heart_318-291441.jpg?t=st=1683858834~exp=1683859434~hmac=c90d793ef344efd71272d89f71aa7c4e85abad1a0751b6fd3f6388f38a1433a7" alt="heart"></button></div>
                         <div class="movie__year">${el.year}</div>
                     </div>
         `
